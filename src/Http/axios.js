@@ -47,8 +47,6 @@ service.interceptors.response.use(response => {
           break;
         }else{
           error.message = '未授权，请重新登录'
-          this.$Plugin();
-          break;
         }
         break;
       case 403:

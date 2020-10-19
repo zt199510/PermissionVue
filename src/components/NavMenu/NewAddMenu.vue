@@ -114,12 +114,7 @@
             @click="onSubmit('NewMenuinfo')"
             >添加</el-button
           >
-          <el-button
-            v-if="resultType == 2"
-            type="primary"
-          
-            >编辑</el-button
-          >
+          <el-button v-if="resultType == 2" type="primary" @click="MenuEdit">保存</el-button>
         </el-form-item>
       </el-form>
     </el-dialog>
@@ -127,7 +122,7 @@
 </template>
 
 <script>
-import { Message} from 'element-ui';
+import { Message } from "element-ui";
 export default {
   props: {
     Menuinfo: {
@@ -201,13 +196,14 @@ export default {
       this.$http
         .post(this.$api.About.CreateMenu, this.NewMenuinfo)
         .then(result => {
-        if(result.Success==true) {
+          if (result.Success == true) {
             this.dialogFormVisible = false;
-            this.$emit("NewAddSuccess",result)
-            return;}
-         Message.error(result.Message);
-                 
-                 return;
+            this.$emit("NewAddSuccess", result);
+            return;
+          }
+          Message.error(result.Message);
+
+          return;
         })
         .catch(error => {
           console.log(error);
@@ -218,35 +214,33 @@ export default {
         .post(this.$api.About.Details + "?id=" + id)
         .then(result => {
           console.log(result.Success);
-          if (result.Success === false){
-              Message.error(result.Message);
-                 this.dialogFormVisible = false;
-                 return;
+          if (result.Success === false) {
+            Message.error(result.Message);
+            this.dialogFormVisible = false;
+            return;
           }
-           this.dialogFormVisible = true;
-            this.NewMenuinfo = {
-              id: result.data.Id,
-              name: result.data.Name,
-              parentId: result.data.ParentId,
-              indexCode: result.data.IndexCode,
-              url: result.data.Url,
-              menuType: result.data.MenuType,
-              icon: result.data.Icon,
-              remarks: result.data.Remarks
-            };
-         
+          this.dialogFormVisible = true;
+          this.NewMenuinfo = {
+            id: result.data.Id,
+            name: result.data.Name,
+            parentId: result.data.ParentId,
+            indexCode: result.data.IndexCode,
+            url: result.data.Url,
+            menuType: result.data.MenuType,
+            icon: result.data.Icon,
+            remarks: result.data.Remarks
+          };
         })
         .catch(error => {
           console.log(error);
         });
     },
     AddorEditMethod(data, type) {
-     
       this.resultType = type;
       this.Isdisabled = false;
       switch (type) {
         case 0:
-            this.dialogFormVisible = true;
+          this.dialogFormVisible = true;
           this.NewMenuinfo = {
             id: "",
             name: "",
@@ -262,10 +256,28 @@ export default {
           this.Isdisabled = true;
         case 2:
           this.GetMenuDetailsInfo(data);
+       
           break;
         default:
           break;
       }
+    },
+    MenuEdit() {
+      this.$http
+        .post(
+          this.$api.About.EditMenu + "?id=" + this.NewMenuinfo.id,
+          this.NewMenuinfo
+        )
+        .then(result => {
+            if(result.Success==true){
+                 Message.success(result.Message)
+                    this.dialogFormVisible = false;
+            this.$emit("NewAddSuccess", result);
+            return;
+            }
+             Message.error(result.Message)
+        })
+        .catch(error => {});
     }
   }
 };
