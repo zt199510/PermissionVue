@@ -4,7 +4,7 @@
       <el-aside width="200px">
         <el-row>
           <el-col :span="24" class="blockss">
-            <h1>demo</h1>
+            <h1>Demo</h1>
           </el-col>
         </el-row>
         <el-row>

@@ -151,6 +151,9 @@ export default {
             result;
             localStorage.setItem("Authorization", result.access_token);
             localStorage.setItem("RefreshToken", result.RefreshToken);
+         
+            localStorage.setItem("resetTime", result.resetTime);
+            
             if (this.checked) {
               localStorage.setItem("IsAutoLogin", this.checked);
                localStorage.setItem("UserInfo", postinfo.userName);

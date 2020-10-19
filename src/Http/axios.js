@@ -1,8 +1,9 @@
 
 import axios from "axios";
 import qs from "qs";
-
+import { getRefreshToken, isRefreshTokenExpired} from '@/assets/js/format'
 import { Message} from 'element-ui';
+window.isReresh = false;
 const service = axios.create({
   baseURL: "/turn/", 
   timeout: 5000,
@@ -24,6 +25,25 @@ service.interceptors.request.use(
   }
 );
 service.interceptors.response.use(response => {
+  let resetTime= localStorage.getItem('resetTime');
+  //let resetTime= 1210;
+  if (localStorage.getItem('Authorization')){
+    isRefreshTokenExpired(resetTime)
+    if(resetTime<1200){
+      if(!window.isReresh){
+          console.log("123123")
+        let refresh_token =  localStorage.getItem("RefreshToken");
+        let NowToken =  localStorage.getItem("Authorization");
+        getRefreshToken(refresh_token,NowToken).then(res => {
+          window.isReresh = false;
+          localStorage.setItem("Authorization", res.access_token);
+          localStorage.setItem("RefreshToken", res.RefreshToken);
+          localStorage.setItem("resetTime",res.resetTime);
+          isRefreshTokenExpired(res.resetTime);// 重新获取的token有效时间
+        }).catch(err => {});
+      }
+    }else window.isReresh = false;
+  }
   //接收到响应数据并成功后的一些共有的处理，关闭loading等
    if (response.status === 200) {
       return response.data;
@@ -44,9 +64,13 @@ service.interceptors.response.use(response => {
       case 401:
         if(error.response.headers.tokenexpired===true){
           error.message = '访问令牌过期'
+         
           break;
         }else{
           error.message = '未授权，请重新登录'
+          localStorage.clear();
+          window.location.href='/';
+          //this.$router.push("/log");
         }
         break;
       case 403:
@@ -91,7 +115,6 @@ service.interceptors.response.use(response => {
   }
 
   Message.error(error.message)
-
 
   /***** 处理结束 *****/
   //如果不需要错误处理，以上的处理过程都可省略

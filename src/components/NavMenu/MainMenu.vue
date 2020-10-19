@@ -1,8 +1,7 @@
 <template>
   <div id="NavMenucss">
     <el-menu
-      default-active="2"
-      class="el-menu-vertical-demo"
+      default-active="1"
       @open="handleOpen"
       @close="handleClose"
     >
@@ -67,6 +66,8 @@ export default {
 <style lang="scss" scoped>
 .el-menu {
   border-right: 0;
+  text-align: left;
+
 }
 </style>>
 
