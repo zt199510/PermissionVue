@@ -22,7 +22,9 @@
             :key="itemchild.Id"
             @click="NavPage(itemchild.Url)"
           >
-            {{ itemchild.Name }}
+           <i :class="itemchild.Icon.toString()"></i>
+          <span slot="title">{{ itemchild.Name }}</span>
+          
           </el-menu-item>
         </el-submenu>
         <el-menu-item

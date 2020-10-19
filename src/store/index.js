@@ -5,11 +5,16 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    BaseUrl:"",
-    loginInfo:[],
-    NavMenuModel:[]
+    BaseUrl: "",
+    loginInfo: [],
+    NavMenuModel: [],
+    fullscreenLoading:false
   },
-  mutations: {},
+  mutations: {
+   
+  },
   actions: {},
-  modules: {}
+  modules: {
+
+  }
 });

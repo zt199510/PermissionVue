@@ -7,7 +7,11 @@ export default {
     // 个人中心
     About: {
         UserInfo: '/user/info',
-        Getmenuitem:'/Userinfos/GetMenuItem'
+        Getmenuitem: '/Userinfos/GetMenuItem',
+        CreateMenu: '/Menu/Create',
+        Details: '/Menu/Details',
+        EditMenu: '/Menu/Edit',
+        Delete:"/Menu/Delete"
     },
 
 }

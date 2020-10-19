@@ -47,6 +47,7 @@ service.interceptors.response.use(response => {
           break;
         }else{
           error.message = '未授权，请重新登录'
+          this.$Plugin();
           break;
         }
         break;
@@ -92,6 +93,8 @@ service.interceptors.response.use(response => {
   }
 
   Message.error(error.message)
+
+
   /***** 处理结束 *****/
   //如果不需要错误处理，以上的处理过程都可省略
   return Promise.reject(error.response)

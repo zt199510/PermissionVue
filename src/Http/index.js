@@ -75,5 +75,5 @@ export default {
         } else {
             return axios.post(url, param)
         }
-    },
+    }
 }

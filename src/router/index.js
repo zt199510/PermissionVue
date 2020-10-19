@@ -7,7 +7,7 @@ import ChildIndex from "@/components/Pageinfo/ChildIndex.vue";
 import About from "../views/About.vue";
 import { Message} from 'element-ui';
 import NavmenuSyte from "@/components/Pageinfo/NavmenuSyte.vue";
- 
+import ERROR404 from "@/components/404/404.vue";
 const originalPush = VueRouter.prototype.push
 VueRouter.prototype.push = function push (location) {
   return originalPush.call(this, location).catch(err => err)
@@ -31,15 +31,21 @@ const routes = [
     component:About,
     children: [
       { path:'index',name: 'Index', component: ChildIndex},
-      { path:'NavView',name:'NavmenuSyte',component:NavmenuSyte}
+      { path: '404', name: 'page404', component: ERROR404 },
+      { path:'NavView',name:'NavmenuSyte',component:NavmenuSyte},
+      {
+        path: '/about/*', // 页面不存在的情况下会跳到404页面
+        redirect: '404',
+        name: 'notFound',
+        hidden: true
+      }
     ],
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    // component: () =>
-    //   import(/* webpackChunkName: "about" */ "../views/About.vue"),
+
       
-  }
+  },
+  
+ 
+  
  
 ];
 
@@ -49,7 +55,7 @@ const router = new VueRouter({
 });
 router.beforeEach((to, from, next) => {
   if (to.matched.length ===0) {   
-    Message.error('没有该页面')                      //如果未匹配到路由
+    Message.error('没有该页面'+from.name)                      //如果未匹配到路由
     from.name ? next({ name:from.name }) : next('/log') 
   }//如果上级也未匹配到路由则跳转登录页面，如果上级能匹配到则转上级路由
   if (to.path == '/'||to.path == '/log'||to.path == '/Regter') {

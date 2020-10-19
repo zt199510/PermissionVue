@@ -38,42 +38,21 @@ export default {
   data() {
     return {
       NavMenuList: [],
-      fullscreenLoading: false,
+     
       defaultHeight: {
         height: ""
       }
     };
   },
   mounted() {
+    this.$store.state.fullscreenLoading=false;
     this.openFullScreen2();
     this.created();
     this.loadleftNavMenuitem();
   },
   methods: {
     loadleftNavMenuitem() {
-      this.$http
-        .get("/Userinfos/GetNavMenuItem")
-        .then(result => {
-          this.ResultList = result;
-          if (this.ResultList.error == true) {
-            this.$message.error(this.ResultList.message);
-          } else {
-            this.$store.state.NavMenuModel = result.data;
-          
-          }
-            this.fullscreenLoading = true;
-        })
-        .catch(error => {
-          console.log(error.headers.tokenexpired);
-          if (error.headers.tokenexpired == "true") {
-            localStorage.clear();
-            this.$router.push("/");
-            
-          }
-          localStorage.clear();
-           this.$router.push("/");
-          this.fullscreenLoading = true;
-        });
+      this.$Plugin();
     },
     openFullScreen2() {
       const loading = this.$loading({
@@ -83,7 +62,7 @@ export default {
         background: "rgba(0, 0, 0, 0.7)"
       });
       setTimeout(() => {
-        if (this.fullscreenLoading == true) {
+        if (this.$store.state.fullscreenLoading == true) {
           loading.close();
         }
       }, 1000);
@@ -107,6 +86,8 @@ export default {
   color: #333;
   text-align: left;
   line-height: 60px;
+  padding: 0;
+  
 }
 
 .el-aside {
@@ -164,6 +145,7 @@ body > .el-container {
   height: 50%;
   padding: 0;
   margin: 0;
+  width: 100%;
 }
 .Tilete {
   margin: 1em 1em;

@@ -7,13 +7,13 @@ import http from "./Http";
 import "./assets/css/global.css";
 import ElementUI from "element-ui";
 import "element-ui/lib/theme-chalk/index.css"; // 默认主题
-
+import Plugin from "./plugin/AllEven";
 Vue.use(ElementUI);
 Vue.prototype.$api = api;
 Vue.config.productionTip = false;
 Vue.prototype.$http = http;
 Vue.config.productionTip = false;
-
+Vue.use(Plugin)
 new Vue({
   router,
   store,
