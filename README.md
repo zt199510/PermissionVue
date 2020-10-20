@@ -9,5 +9,5 @@
 2,添加token失效利用刷新令牌刷新token
 
 # 界面演示
-![登入页面](blob/master/READEMEImg/login.png)
-![后台页面](blob/master/READEMEImg/system.png)
+![登入页面](READEMEImg/login.png)
+![后台页面](READEMEImg/system.png)
