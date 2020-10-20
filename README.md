@@ -9,5 +9,5 @@
 2,添加token失效利用刷新令牌刷新token
 
 # 界面演示
-![Alt text](https://github.com/zt199510/PermissionVue/blob/master/READEMEImg/login.png)
-![Alt text](https://github.com/zt199510/PermissionVue/blob/master/READEMEImg/system.png)
+![登入页面](blob/master/READEMEImg/login.png)
+![Alt text](blob/master/READEMEImg/system.png)
