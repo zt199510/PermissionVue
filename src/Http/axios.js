@@ -13,6 +13,12 @@ const service = axios.create({
    }
 });
 
+if (process.env.NODE_ENV === "development") {
+  service.baseURL='/turn/'
+ }else {
+  service.baseURL='https://localhost:5001/';//http://47.106.71.73:5000/swagger/index.html
+ }
+
 service.interceptors.request.use(
   (config) => {
     if (localStorage.getItem('Authorization')) {
@@ -70,6 +76,7 @@ service.interceptors.response.use(response => {
           error.message = '未授权，请重新登录'
           localStorage.clear();
           window.location.href='/';
+          window.interval=null;
           //this.$router.push("/log");
         }
         break;
@@ -87,6 +94,7 @@ service.interceptors.response.use(response => {
         break;
       case 500:
         error.message = '服务器端出错'
+    
         break;
       case 501:
         error.message = '网络未实现'

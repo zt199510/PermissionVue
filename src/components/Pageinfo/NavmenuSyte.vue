@@ -77,7 +77,7 @@
           align="center"
         >
         </el-table-column>
-        <el-table-column prop="Id" label="菜单编号" align="center">
+        <el-table-column prop="Code" label="菜单编号" align="center">
         </el-table-column>
         <el-table-column prop="ParentId" label="父级编号" align="center">
         </el-table-column>

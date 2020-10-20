@@ -10,10 +10,10 @@
       >
         <el-row>
           <el-col :span="12">
-            <el-form-item label="菜单编号:" prop="id">
+            <el-form-item label="菜单编号:" prop="Code">
               <el-input
                 :disabled="Isdisabled"
-                v-model="NewMenuinfo.id"
+                v-model="NewMenuinfo.Code"
                 placeholder="菜单编号"
               ></el-input>
             </el-form-item>
@@ -65,6 +65,7 @@
                 :disabled="Isdisabled"
                 v-model="NewMenuinfo.menuType"
                 placeholder="请选择"
+                
               >
                 <el-option
                   v-for="item in options"
@@ -132,11 +133,13 @@ export default {
   },
   data() {
     return {
+      GUID:"",
       Isdisabled: false,
       resultType: 0,
       dialogFormVisible: false,
       NewMenuinfo: {
-        id: "",
+        id:"",
+        Code: "",
         name: "",
         parentId: "",
         indexCode: 0,
@@ -146,7 +149,7 @@ export default {
         remarks: ""
       },
       rules: {
-        id: { required: true, message: "菜单编号不能为空", trigger: "blur" },
+        Code: { required: true, message: "菜单编号不能为空", trigger: "blur" },
         name: { required: true, message: "菜单名称不能为空", trigger: "blur" },
 
         indexCode: [
@@ -170,11 +173,11 @@ export default {
       },
       options: [
         {
-          value: "0",
+          value: 0,
           label: "导航菜单"
         },
         {
-          value: "1",
+          value: 1,
           label: "操作菜单"
         }
       ]
@@ -221,7 +224,8 @@ export default {
           }
           this.dialogFormVisible = true;
           this.NewMenuinfo = {
-            id: result.data.Id,
+            id:result.data.id,
+            Code: result.data.Code,
             name: result.data.Name,
             parentId: result.data.ParentId,
             indexCode: result.data.IndexCode,
@@ -242,7 +246,8 @@ export default {
         case 0:
           this.dialogFormVisible = true;
           this.NewMenuinfo = {
-            id: "",
+            id:"",
+            Code: "",
             name: "",
             parentId: "",
             indexCode: 0,
@@ -255,8 +260,8 @@ export default {
         case 1:
           this.Isdisabled = true;
         case 2:
+          this.GUID=data;
           this.GetMenuDetailsInfo(data);
-       
           break;
         default:
           break;
@@ -265,7 +270,7 @@ export default {
     MenuEdit() {
       this.$http
         .post(
-          this.$api.About.EditMenu + "?id=" + this.NewMenuinfo.id,
+          this.$api.About.EditMenu + "?id=" + this.GUID,
           this.NewMenuinfo
         )
         .then(result => {
