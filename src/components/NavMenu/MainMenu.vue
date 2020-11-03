@@ -8,8 +8,8 @@
       <template v-for="(item, i) in NavMenuList">
         <el-submenu
           :index="i.toString()"
-          v-if="item.MenuType == 0"
-          :key="item.Id"
+          v-if="item.Type == 0"
+          :key="item.Code"
         >
           <template slot="title">
             <i :class="item.Icon.toString()"></i>

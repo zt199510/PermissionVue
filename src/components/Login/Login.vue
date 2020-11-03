@@ -148,7 +148,7 @@ export default {
           if (this.ResultList.error == true)
             this.$message.error(this.ResultList.message);
           else {
-            result;
+            console.log(result)
             localStorage.setItem("Authorization", result.access_token);
             localStorage.setItem("RefreshToken", result.RefreshToken);
          
