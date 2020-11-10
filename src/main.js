@@ -8,6 +8,7 @@ import "./assets/css/global.css";
 import ElementUI from "element-ui";
 import "element-ui/lib/theme-chalk/index.css"; // 默认主题
 import Plugin from "./plugin/AllEven";
+import '../node_modules/layui/css/layui.css'
 Vue.use(ElementUI);
 Vue.prototype.$api = api;
 Vue.config.productionTip = false;

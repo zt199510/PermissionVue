@@ -4,15 +4,18 @@
       default-active="1"
       @open="handleOpen"
       @close="handleClose"
+      background-color="transparent"
+      text-color="#fff"
+      active-text-color="#ffd04b"
     >
-      <template v-for="(item, i) in NavMenuList">
+      <template v-for="(item, i) in NavMenuList.Data">
         <el-submenu
           :index="i.toString()"
           v-if="item.Type == 0"
           :key="item.Code"
         >
           <template slot="title">
-            <i :class="item.Icon.toString()"></i>
+            <!-- <i :class="item.Icon.toString()"></i> -->
             <span>{{ item.Name }}</span>
           </template>
           <el-menu-item
@@ -32,7 +35,7 @@
           :key="item.Id"
           @click="NavPage(item.Url)"
         >
-          <i :class="item.Icon.toString()"></i>
+          <!-- <i :class="item.Icon.toString()"></i> -->
           <span slot="title">{{ item.Name }}</span>
         </el-menu-item>
       </template>

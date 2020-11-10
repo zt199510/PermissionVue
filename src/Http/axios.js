@@ -1,8 +1,9 @@
 
 import axios from "axios";
 import qs from "qs";
-import { getRefreshToken, isRefreshTokenExpired} from '@/assets/js/format'
+
 import { Message} from 'element-ui';
+import { getRefreshToken, isRefreshTokenExpired} from '@/assets/js/format';
 window.isReresh = false;
 const service = axios.create({
   baseURL: "/turn/", 
@@ -37,7 +38,7 @@ service.interceptors.response.use(response => {
     isRefreshTokenExpired(resetTime)
     if(resetTime<1200){
       if(!window.isReresh){
-          console.log("123123")
+         
         let refresh_token =  localStorage.getItem("RefreshToken");
         let NowToken =  localStorage.getItem("Authorization");
         getRefreshToken(refresh_token,NowToken).then(res => {

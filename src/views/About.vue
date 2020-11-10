@@ -1,6 +1,66 @@
 <template>
-  <div>
-    <el-container>
+  <div class="layui-layout layui-layout-admin">
+    <div class="layui-header">
+      <div class="layui-logo">Demo</div>
+      <!-- 头部区域（可配合layui已有的水平导航） -->
+      <ul class="layui-nav layui-layout-left">
+        <li class="layui-nav-item">控制台</li>
+      </ul>
+      <ul class="layui-nav layui-layout-right">
+        <li class="layui-nav-item">
+          <a href="javascript:;">
+            <img src="http://t.cn/RCzsdCq" class="layui-nav-img" />
+            贤心
+          </a>
+          <dl class="layui-nav-child">
+            <dd><a href="">基本资料</a></dd>
+            <dd><a href="">安全设置</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item"><a href="">退了</a></li>
+      </ul>
+    </div>
+
+    <div class="layui-side layui-bg-black">
+      <div class="layui-side-scroll">
+        <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+        <ul class="layui-nav layui-nav-tree" lay-filter="test">
+          <li class="layui-nav-item layui-nav-itemed">
+            <a class="" href="javascript:;">所有商品</a>
+            <dl class="layui-nav-child">
+              <dd><a href="javascript:;">列表一</a></dd>
+              <dd><a href="javascript:;">列表二</a></dd>
+              <dd><a href="javascript:;">列表三</a></dd>
+              <dd><a href="">超链接</a></dd>
+            </dl>
+          </li>
+          <li class="layui-nav-item">
+            <a href="javascript:;">解决方案</a>
+            <dl class="layui-nav-child">
+              <dd><a href="javascript:;">列表一</a></dd>
+              <dd><a href="javascript:;">列表二</a></dd>
+            </dl>
+          </li>
+        
+        </ul>
+        <!-- <MainMenu :NavMenuList="this.$store.state.NavMenuModel" /> -->
+      </div>
+    </div>
+
+    <div class="layui-body">
+      <!-- 内容主体区域 -->
+      <div style="padding: 15px;">
+        <router-view></router-view>
+      </div>
+    </div>
+
+    <div class="layui-footer">
+      <!-- 底部固定区域 -->
+      © layui.com - 底部固定区域
+    </div>
+  </div>
+
+  <!-- <el-container>
       <el-aside width="200px">
         <el-row>
           <el-col :span="24" class="blockss">
@@ -19,11 +79,10 @@
         </el-header>
         <div :style="defaultHeight">
           <div class="Tilete"></div>
-          <router-view></router-view>
+          
         </div>
       </el-container>
-    </el-container>
-  </div>
+    </el-container> -->
 </template>
 
 <script>
@@ -38,16 +97,19 @@ export default {
   data() {
     return {
       NavMenuList: [],
-     
+
       defaultHeight: {
         height: ""
       }
     };
   },
   mounted() {
-    this.$store.state.fullscreenLoading=false;
+    layui.use("element", function() {
+      var element = layui.element;
+    });
+    this.$store.state.fullscreenLoading = false;
     this.openFullScreen2();
-    this.created();
+
     this.loadleftNavMenuitem();
   },
   methods: {
@@ -66,14 +128,6 @@ export default {
           loading.close();
         }
       }, 1000);
-    },
-    getHeight() {
-      this.defaultHeight.height = window.innerHeight - 90 + "px";
-    },
-    created() {
-      //页面创建时执行一次getHeight进行赋值，顺道绑定resize事件
-      window.addEventListener("resize", this.getHeight);
-      this.getHeight();
     }
   }
 };
@@ -87,7 +141,6 @@ export default {
   text-align: left;
   line-height: 60px;
   padding: 0;
-  
 }
 
 .el-aside {
